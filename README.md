@@ -41,22 +41,25 @@ The https://github.com/Crascit/DownloadProject cmake files are used to download 
 And I quote from the repository README.md:
 > The primary advantage of this is that the project's source code can then be included directly in the main CMake build using the add_subdirectory() command, making all of the external project's targets, etc. available without any further effort.
 
-# Make the skeleton build
-### Run the following:
+# Skeleton application and tests
+### Downloading the source
 ```bash
 mkdir -p /build/application-software && cd /build/application-software
 git clone https://github.com/head5man/cpp-skeleton.git
 cd cpp-skeleton
+```
+### Running the build:
+```bash
 mkdir -p build && cd build
 cmake ..
 make
 ```
-### Run the application
+### Running the application
 ```bash
 #Run the skeleton executable
 src/skeleton
 ```
-### Run the tests
+### Running the tests
 ```bash
 #Run the skeleton-test executable
 src/skeleton-test
