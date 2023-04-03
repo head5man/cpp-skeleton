@@ -1,6 +1,6 @@
 # Preparations
 This guideline was written on Ubuntu 20.04 TLS.
-The example uses /build as the base path.
+The example uses ~/build as the base path.
 
 ## Required build tools
 The cpp-skeleton application software requires cmake v3.3.2 to build.
@@ -23,7 +23,7 @@ The log4cplus compiler test still fails while processing following version check
 ```
 #### Run the following commands:
 ```bash
-mkdir -p /build/3rdparty && cd /build/3rdparty
+sudo mkdir -p ~/build/3rdparty && cd ~/build/3rdparty
 git clone --branch REL_2_1_0 https://github.com/log4cplus/log4cplus.git
 cd log4cplus
 git submodule update --init --recursive
@@ -44,7 +44,7 @@ And I quote from the repository README.md:
 # Skeleton application and tests
 ### Downloading the source
 ```bash
-mkdir -p /build/application-software && cd /build/application-software
+mkdir -p ~/build/application-software && cd ~/build/application-software
 git clone https://github.com/head5man/cpp-skeleton.git
 cd cpp-skeleton
 ```
