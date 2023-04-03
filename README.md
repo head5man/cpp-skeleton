@@ -12,6 +12,11 @@ Following is the list of tool identified reconstruct the build setup on stock ub
 sudo apt-get update
 sudo apt-get install autoconf autogen automake cmake curl git libtool g++ make unzip
 ```
+### About Used DownloadProject
+The https://github.com/Crascit/DownloadProject cmake files are used to download googletest at CMake's configure step.
+
+And I quote from the repository README.md:
+> The primary advantage of this is that the project's source code can then be included directly in the main CMake build using the add_subdirectory() command, making all of the external project's targets, etc. available without any further effort.
 
 ## Build log4cplus (REL_2_1_0)
 Opting to use version tagged `REL_2_1_0` as the master head version (3.0.0) requires a compiler with c++20 features and is a bit picky while at it.
@@ -23,24 +28,18 @@ The log4cplus compiler test still fails while processing following version check
 ```
 #### Run the following commands:
 ```bash
-sudo mkdir -p ~/build/3rdparty && cd ~/build/3rdparty
+mkdir -p ~/build/3rdparty && cd ~/build/3rdparty
 git clone --branch REL_2_1_0 https://github.com/log4cplus/log4cplus.git
 cd log4cplus
 git submodule update --init --recursive
 ./configure
-make -j4
-# run make again if encouter warning AC_some_variable_m4
+# running the make twice due to error on the first run
+# configure.ac:453: error: possibly undefined macro: AC_CHECK_INCLUDES_DEFAULT
+make -j4 || make -j4
 sudo make install
 # verify installed
 pkg-config --debug log4cplus
 ```
-
-### DownloadProject
-The https://github.com/Crascit/DownloadProject cmake files are used to download googletest at CMake's configure step.
-
-And I quote from the repository README.md:
-> The primary advantage of this is that the project's source code can then be included directly in the main CMake build using the add_subdirectory() command, making all of the external project's targets, etc. available without any further effort.
-
 # Skeleton application and tests
 ### Downloading the source
 ```bash
