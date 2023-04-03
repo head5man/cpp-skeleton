@@ -14,9 +14,9 @@ sudo apt-get install autoconf autogen automake cmake curl git libtool g++ make u
 ```
 
 ## Build log4cplus (REL_2_1_0)
-The master head version (3.0.0) of the log4plus requires a compiler with c++20 features and is a bit picky while at it.
-Although the tested g++ (10.3) compiler does accept flag -std=c++20 and __cplusplus evaluates to 201707L.
-The log4cplus compiler test still fail due to a version checking clause.
+Opting to use version tagged `REL_2_1_0` as the master head version (3.0.0) requires a compiler with c++20 features and is a bit picky while at it.
+For example the g++-10 (10.3) compiler accepts the flag -std=c++20 and __cplusplus evaluates to 201707L.
+The log4cplus compiler test still fails while processing following version checking line.
 ```
 #https://github.com/log4cplus/log4cplus/blob/d9521ad97ba781b8b97f5aa29b0f4476074db866/m4/ax_cxx_compile_stdcxx.m4#L990
 #elif __cplusplus < 202002L && !defined _MSVER
