@@ -37,6 +37,7 @@ git submodule update --init --recursive
 # configure.ac:453: error: possibly undefined macro: AC_CHECK_INCLUDES_DEFAULT
 make -j4 || make -j4
 sudo make install
+sudo ldconfig
 # verify installed
 pkg-config --debug log4cplus
 ```
