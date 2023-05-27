@@ -3,10 +3,6 @@ cmake_minimum_required(VERSION 3.3.2)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(LOG4CPLUS REQUIRED log4cplus)
-
-
 # Main source directory
 include_directories(${CMAKE_CURRENT_LIST_DIR}/..)
 
@@ -28,10 +24,11 @@ list(APPEND TestFiles
     ${CMAKE_CURRENT_LIST_DIR}/../test/TestLogging.cpp
 )
 
-
 # skeleton main executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/main.cpp ${SourceFiles})
-target_link_libraries(${PROJECT_NAME} ${LOG4CPLUS_LIBRARIES})
+message(${log4cplus_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${log4cplus_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME} PRIVATE log4cplus)
 
 # skeleton sources as library
 add_library(${PROJECT_NAME}-lib ${SourceFiles})
@@ -39,7 +36,6 @@ target_include_directories(${PROJECT_NAME}-lib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/
 
 # skeleton test executable
 add_executable(${PROJECT_NAME}-test ${CMAKE_CURRENT_LIST_DIR}/../test/TestMain.cpp)
-target_include_directories(${PROJECT_NAME}-test PUBLIC ${CMAKE_CURRENT_LIST_DIR}/../googletest)
 target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock_main)
 
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
