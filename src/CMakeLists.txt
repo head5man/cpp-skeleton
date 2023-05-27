@@ -32,11 +32,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE log4cplus)
 
 # skeleton sources as library
 add_library(${PROJECT_NAME}-lib ${SourceFiles})
-target_include_directories(${PROJECT_NAME}-lib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/..)
+target_include_directories(${PROJECT_NAME}-lib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/.. ${log4cplus_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME}-lib PRIVATE log4cplus)
 
 # skeleton test executable
 add_executable(${PROJECT_NAME}-test ${CMAKE_CURRENT_LIST_DIR}/../test/TestMain.cpp)
 target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock_main)
+target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/include)
 
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 
