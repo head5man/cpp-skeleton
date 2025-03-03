@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+message CalibrationStatusQuery {
+}
+
+message CalibrationCommand {
+  CalibrationData data = 1;
+}
+
+message CalibrationResponse
+{
+  CalibrationData data = 1;
+}
+
+message CalibrationData {
+  bool active = 1;
+  int32 minimum = 2;
+  int32 maximum = 3;
+}
+
+message ProtocolMessage
+{
+    int32 id = 1;
+    CalibrationCommand command = 2;
+    CalibrationResponse response = 3;
+    CalibrationStatusQuery query = 4;
+}

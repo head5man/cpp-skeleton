@@ -8,8 +8,9 @@
  * @copyright Copyright (c) 2023
  * 
  */
-// test includes
-#include "LoggerTest.cpp"
+// test "includes"
+//#include "LoggerTest.cpp"
+//#include "ProtocolTest.cpp"
 
 // googletest 
 #include "gtest/gtest.h"

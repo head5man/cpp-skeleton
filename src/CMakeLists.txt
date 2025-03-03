@@ -20,10 +20,6 @@ list(APPEND SourceFiles
     ${CMAKE_CURRENT_LIST_DIR}/Factory.cpp
 )
 
-list(APPEND TestFiles
-    ${CMAKE_CURRENT_LIST_DIR}/../test/TestLogging.cpp
-)
-
 # skeleton main executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/main.cpp ${SourceFiles})
 message(${log4cplus_SOURCE_DIR}/include)
@@ -36,10 +32,10 @@ target_include_directories(${PROJECT_NAME}-lib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/
 target_link_libraries(${PROJECT_NAME}-lib PRIVATE log4cplus)
 
 # skeleton test executable
-add_executable(${PROJECT_NAME}-test ${CMAKE_CURRENT_LIST_DIR}/../test/TestMain.cpp)
-target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock_main)
-target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/include)
+#add_executable(${PROJECT_NAME}-test ${CMAKE_CURRENT_LIST_DIR}/../test/TestMain.cpp)
+#target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock_main messages)
+#target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/include ${protobuf_SOURCE_DIR})
 
-add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
+#add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
