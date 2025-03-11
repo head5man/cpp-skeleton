@@ -22,5 +22,4 @@ target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/i
 
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 
-copy_target_runtime_dlls(${PROJECT_NAME}-test)
 print_target_properties(${PROJECT_NAME}-test LINK_LIBRARIES)

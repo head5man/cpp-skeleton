@@ -26,7 +26,8 @@ add_custom_target(configuration ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${conf_
 add_executable(${PROJECT_NAME}-example ${CMAKE_CURRENT_LIST_DIR}/main.cpp)
 target_include_directories(${PROJECT_NAME}-example PUBLIC ${log4cplus_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME}-example ${log4cplus} ${PROJECT_NAME}-lib)
-copy_target_runtime_dlls(${PROJECT_NAME}-example)
-install(TARGETS ${PROJECT_NAME}-example RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+if (MSVC)
+  copy_target_runtime_dlls(${PROJECT_NAME}-example)
+endif()
 print_target_properties(${PROJECT_NAME}-example COMPILE_DEFINITIONS)
 

@@ -10,20 +10,21 @@
  */
 #pragma once
 #include "interfaces/ILogger.h"
+#include <cstring>
+#include <memory>
 #include <sstream>
 #include <string>
-#include <memory>
 
 namespace skeleton::logging
 {
 
-#if (UNICODE)
+#ifdef UNICODE
 #   define TCHAR wchar_t
 #   define TOLOGSTR(a) (const TCHAR*)L""##a
-#else (UNICODE)
+#else // (UNICODE)
 #   define TCHAR char
 #   define TOLOGSTR(a) a
-#endif (UNICODE)
+#endif // (UNICODE)
 
 #define TSTR std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR>>
 #define TOLOGTSTR(a) TSTR(TOLOGSTR(a))
