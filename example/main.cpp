@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     std::cout << "logger instance @" << logger.get() << std::endl;
     auto same = skeleton::factory::getLogger<skeleton::logging::Logger>("main");
     std::cout << "logger instance @" << logger.get() << "==" << same.get() << std::endl;
-    logger->configure("../log.conf");
+    logger->configure("./log.conf");
     logger->debug("debug message");
     logger->warn("warning message");
     logger->info("info message");

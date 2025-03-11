@@ -18,17 +18,6 @@
 namespace skeleton::logging
 {
 
-#ifdef UNICODE
-#   define TCHAR wchar_t
-#   define TOLOGSTR(a) (const TCHAR*)L""##a
-#else // (UNICODE)
-#   define TCHAR char
-#   define TOLOGSTR(a) a
-#endif // (UNICODE)
-
-#define TSTR std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR>>
-#define TOLOGTSTR(a) TSTR(TOLOGSTR(a))
-
 /// @brief Logger class provides functions for application logging
 class Logger
 {

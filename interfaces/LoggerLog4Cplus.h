@@ -42,16 +42,19 @@ public:
         
     void configure(const TChar* const file)
     {
+        log4cplus::Logger instance(log4cplus::Logger::getInstance(TOLOGTSTR("init")));
         std::ifstream ifs(file);
         if (ifs.good())
         {
             log4cplus::PropertyConfigurator config(file);
             config.configure();
+            instance.log(log4cplus::INFO_LOG_LEVEL, TOLOGSTR("configure() - file OK"));
         }
         else
         {
             log4cplus::BasicConfigurator config;
             config.configure();
+            instance.log(log4cplus::INFO_LOG_LEVEL, TOLOGSTR("Configure() - no file - BasicConfigurator"));
         }
     }
 
