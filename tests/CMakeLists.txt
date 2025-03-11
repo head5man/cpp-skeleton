@@ -20,6 +20,7 @@ target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock gmock
 
 target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/include)
 
-add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
-
 print_target_properties(${PROJECT_NAME}-test LINK_LIBRARIES)
+
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}-test)
