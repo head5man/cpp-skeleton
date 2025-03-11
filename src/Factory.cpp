@@ -15,9 +15,28 @@
 namespace skeleton::factory
 {
 
-template <> std::unique_ptr<logging::Logger> getDefault<logging::Logger>(const char* str)
+template <> std::shared_ptr<logging::Logger> getLogger<logging::Logger>(const char* name)
 {
-    return std::unique_ptr<logging::Logger>(new logging::Logger(str, std::make_unique<implementations::Log4CplusLogger>()));
+    static std::map<const char*, std::weak_ptr<logging::Logger>> loggers;
+    std::shared_ptr<logging::Logger> p = nullptr;
+
+    for (auto [key, value] : loggers)
+    {
+        if (strcmp(name, key) == 0)
+        {
+            std::cout << "use found logger" << std::endl;
+            p = value.lock();
+        }
+    }
+
+    if (p == nullptr)
+    {
+        std::cout << "create logger" << std::endl;
+        p = std::make_shared<logging::Logger>(name, std::make_unique<implementations::Log4CplusLogger<TCHAR>>());
+        loggers.insert_or_assign(name, std::weak_ptr(p));
+    }
+
+    return p;
 }
 
 } // skeleton::factory

@@ -19,32 +19,38 @@
 
 namespace skeleton::implementations
 {
-
-class Log4CplusLogger: public interfaces::ILogger
+template<typename TChar>
+class Log4CplusLogger: public interfaces::ILogger<TChar>
 {
+    log4cplus::Initializer initializer;
+    using LogLevels = interfaces::LogLevels;
+    using _Mystr = std::basic_string<TChar, std::char_traits<TChar>, std::allocator<TChar>>;
+    using _Myss = std::basic_stringstream<TChar, std::char_traits<TChar>, std::allocator<TChar>>;
 public:
-    Log4CplusLogger() {}
+    Log4CplusLogger() { }
     
-    ~Log4CplusLogger() {std::cout << "destroyed" << std::endl;}
-
-    void log(const char* logger, interfaces::ILogger::LogLevels level, const std::string &message, const char* file, int line, const char* function) override
+    ~Log4CplusLogger()
     {
-        log4cplus::Logger instance(log4cplus::Logger::getInstance(LOG4CPLUS_TEXT(logger)));
+        std::cout << "destroyed" << std::endl;
+    }
+
+    void log(const TChar* logger, LogLevels level, const _Mystr &message, const char* file, int line, const char* function) override
+    {
+        log4cplus::Logger instance(log4cplus::Logger::getInstance(_Mystr(logger)));
         instance.log(m_logLevels.at(level), message, file, line, function);
     }
         
-    void configure(const std::string &file)
+    void configure(const TChar* const file)
     {
-        using namespace log4cplus;
         std::ifstream ifs(file);
         if (ifs.good())
         {
-            PropertyConfigurator config(file);
+            log4cplus::PropertyConfigurator config(file);
             config.configure();
         }
         else
         {
-            BasicConfigurator config;
+            log4cplus::BasicConfigurator config;
             config.configure();
         }
     }
