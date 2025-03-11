@@ -9,8 +9,8 @@ project(skeleton
 option(SKELETON_BUILD_TESTS "Build test program" ON)
 option(SKELETON_BUILD_EXAMPLE "Build example" ON)
 
-# Override - Build with tchar = wchar_t
-set(UNICODE TRUE)
+# Build without tchar = wchar_t
+set(UNICODE FALSE)
 
 add_subdirectory(src)
 
