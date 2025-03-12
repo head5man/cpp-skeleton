@@ -29,6 +29,7 @@ add_custom_target(configuration ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${TARGE
 
 # skeleton example executable
 add_executable(${PROJECT_NAME}-example ${CMAKE_CURRENT_LIST_DIR}/main.cpp)
+silence_msvc_warnings(${PROJECT_NAME}-example)
 target_include_directories(${PROJECT_NAME}-example PUBLIC ${log4cplus_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME}-example ${log4cplus} ${PROJECT_NAME}-lib)
 if (MSVC)

@@ -14,7 +14,7 @@ list(APPEND SourceFiles
 add_library(${PROJECT_NAME}-lib STATIC ${SourceFiles})
 
 if (MSVC)
-    target_compile_definitions(${PROJECT_NAME}-lib PRIVATE "" _CRT_SECURE_NO_WARNINGS)
+    silence_msvc_warnings(${PROJECT_NAME}-lib)
 endif()
 
 target_include_directories(${PROJECT_NAME}-lib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/.. ${log4cplus_SOURCE_DIR}/include)

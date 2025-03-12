@@ -13,3 +13,7 @@ macro(copy_target_runtime_dlls NAME)
     COMMAND_EXPAND_LISTS
   )
 endmacro()
+
+macro(silence_msvc_warnings NAME)
+  target_compile_definitions(${NAME} PRIVATE "" _CRT_SECURE_NO_WARNINGS)
+endmacro()

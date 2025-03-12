@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0077 NEW)
 
 project(skeleton
     VERSION 0.1
@@ -10,7 +11,7 @@ option(SKELETON_BUILD_TESTS "Build test program" ON)
 option(SKELETON_BUILD_EXAMPLE "Build example" ON)
 
 # Build without tchar = wchar_t
-set(UNICODE FALSE)
+set(UNICODE OFF CACHE INTERNAL "" FORCE)
 
 add_subdirectory(src)
 

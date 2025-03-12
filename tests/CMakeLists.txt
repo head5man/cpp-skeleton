@@ -16,6 +16,10 @@ list(APPEND TestFiles
 
 add_executable(${PROJECT_NAME}-test ${TestFiles})
 
+if (MSVC)
+    silence_msvc_warnings(${PROJECT_NAME}-test)
+endif()
+
 target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}-lib gtest gmock gmock_main)
 
 target_include_directories(${PROJECT_NAME}-test PUBLIC ${log4cplus_SOURCE_DIR}/include)
