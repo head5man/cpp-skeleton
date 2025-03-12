@@ -8,8 +8,6 @@
  * @copyright Copyright (c) 2023
  * 
  */
-// test includes
-#include "LoggerTest.cpp"
 
 // googletest 
 #include "gtest/gtest.h"

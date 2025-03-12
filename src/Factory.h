@@ -14,5 +14,5 @@
 namespace skeleton::factory
 {
    // Get a default implementation of class
-   template <typename T, class D> std::unique_ptr<T> getDefault(D);
+   template <typename T, class D> std::shared_ptr<T> getLogger(D);
 } // namespace skeleton::factory

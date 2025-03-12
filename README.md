@@ -1,69 +1,62 @@
-# Preparations
-This guideline was written on Ubuntu 20.04 TLS.
-The example uses ~/build as the base path.
+# cpp-skeleton
+The initial purpose of this project was to produce working example of building a cpp application with logging (l0g4cplus).
 
-## Required build tools
-The cpp-skeleton application software requires cmake v3.3.2 to build.
-During initial testing g++-10 compiler was used but the ubuntu default g++-9 should work just fine.
+The future vision is to serve as a skeleton for cpp application with configurable modules.
 
-Following is the list of tool identified reconstruct the build setup on stock ubuntu.
+The modules could be something like:
+</br>
+SKELETON_USE_LOG4CPLUS
+</br>
+SKELETON_USE_SOMEMODULE
 
-```bash
-sudo apt-get update
-sudo apt-get install autoconf autogen automake cmake curl git libtool g++ make unzip
-```
-### About Used DownloadProject
-The https://github.com/Crascit/DownloadProject cmake files are used to download googletest at CMake's configure step.
+## Build instructions
+You can build any tool supporting digesting the `CMakeLists.txt` including vscode or vstudio but the workflow and configuration is tool specific.
 
-And I quote from the repository README.md:
-> The primary advantage of this is that the project's source code can then be included directly in the main CMake build using the add_subdirectory() command, making all of the external project's targets, etc. available without any further effort.
+The following is the instructions on how to build using docker and ubuntu.
+The ubuntu example is based on the docker build and is basically just overview of it.
 
-## Build log4cplus (REL_2_1_0)
-Opting to use version tagged `REL_2_1_0` as the master head version (3.0.0) requires a compiler with c++20 features and is a bit picky while at it.
-For example the g++-10 (10.3) compiler accepts the flag -std=c++20 and __cplusplus evaluates to 201707L.
-The log4cplus compiler test still fails while processing following version checking line.
-```
-#https://github.com/log4cplus/log4cplus/blob/d9521ad97ba781b8b97f5aa29b0f4476074db866/m4/ax_cxx_compile_stdcxx.m4#L990
-#elif __cplusplus < 202002L && !defined _MSVER
-```
-#### Run the following commands:
-```bash
-mkdir -p ~/build/3rdparty && cd ~/build/3rdparty
-git clone --branch REL_2_1_0 https://github.com/log4cplus/log4cplus.git
-cd log4cplus
-git submodule update --init --recursive
-./configure
-# running the make twice due to error on the first run
-# configure.ac:453: error: possibly undefined macro: AC_CHECK_INCLUDES_DEFAULT
-make -j4 || make -j4
-sudo make install
-sudo ldconfig
-# verify installed
-pkg-config --debug log4cplus
-```
-# Skeleton application and tests
-### Downloading the source
-```bash
-mkdir -p ~/build/application-software && cd ~/build/application-software
+## Preparations
+This guideline was written on Windows 10.
+
+### Required build tools
+Docker installed.
+[docker-windows](https://docs.docker.com/desktop/setup/install/windows-install/)
+Git installed
+[git-windows](https://git-scm.com/downloads/win)
+#### Docker build and run example:
+```shell
 git clone https://github.com/head5man/cpp-skeleton.git
 cd cpp-skeleton
-```
-### Running the build:
-```bash
-mkdir -p build && cd build
-cmake ..
-make
-```
-### Running the application
-```bash
-#Run the skeleton executable
-src/skeleton
-```
-### Running the tests
-```bash
-#Run the skeleton-test executable
-src/skeleton-test
-#Run CTest alternative reporting only module level results
-make test
+# Build the image defined in ./Dockerfile
+docker build -t build_image_name .
+# Run container with interactive terminal
+docker run -it --name=build_container_name build_image_name /bin/bash
+# To run test executable
+build_container_name:/usr/src/app/build# ./tests/skeleton-test
+# To run application example
+build_container_name:/usr/src/app/build# cd example && ./skeleton-example
+# Exit and delete container and image
+build_container_name:/usr/src/app/build# exit
+docker rm build_container_name
+docker rmi build_image_name
 ```
 
+#### Ubuntu 22.04 build and run example
+```bash
+apt-get update 
+apt-get install build-essential -y
+apt-get install cmake -y
+apt-get install git -y
+
+# Clone repository to home and build
+cd ~
+git clone https://github.com/head5man/cpp-skeleton.git
+cmake -S cpp-skeleton -B cpp-skelton/build
+cmake --build cpp-skeleton/build
+
+# To run test executable
+cpp-skeleton/build/tests/skeleton-test
+
+# To run application example
+cd cpp-skeleton/build/example && ./skeleton-example
+```
